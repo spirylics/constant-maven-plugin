@@ -1,2 +1,2 @@
-# maven-constant-plugin
+# constant-maven-plugin
 Export properties to constants sources
