@@ -23,6 +23,18 @@
                     <directory>${project.build.directory}/gen</directory>
                     <name>com.github.spirylics.test.R</name>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-constants</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.generatedSources}/gwt</outputDirectory>
+                            <name>com.thrillsoft.utransport.client.R</name>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

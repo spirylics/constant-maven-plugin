@@ -4,7 +4,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +17,15 @@ import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES;
 
+/**
+ * The read-project-properties goal reads property files and URLs and stores the properties as project properties. It
+ * serves as an alternate to specifying properties in pom.xml. It is especially useful when making properties defined in
+ * a runtime resource available at build time.
+ *
+ * @author <a href="mailto:zarars@gmail.com">Zarar Siddiqi</a>
+ * @author <a href="mailto:Krystian.Nowak@gmail.com">Krystian Nowak</a>
+ * @version $Id$
+ */
 @Mojo(name = "java", defaultPhase = GENERATE_SOURCES)
 public class JavaGen extends AbstractMojo {
 
@@ -27,8 +35,8 @@ public class JavaGen extends AbstractMojo {
     @Parameter(readonly = true, required = true)
     String name;
 
-    @Parameter(defaultValue = "${project}", readonly = true, required = true)
-    MavenProject project;
+//    @Parameter(defaultValue = "${project}", readonly = true, required = true)
+//    MavenProject project;
 
     public void execute() throws MojoExecutionException {
         Path constantPath = getConstantFile().toPath();
