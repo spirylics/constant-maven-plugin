@@ -81,7 +81,7 @@ public class JavaGen extends AbstractMojo {
         Object realValue = getRealValue(String.valueOf(entry.getValue()));
         return String.format("%s %s = %s;",
                 toStringType(realValue),
-                String.valueOf(entry.getKey()).replace(".", "_"),
+                String.valueOf(entry.getKey()).replaceAll("\\.|-", "_"),
                 toStringValue(realValue));
     }
 
