@@ -9,12 +9,12 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES;
@@ -56,7 +56,7 @@ public class JavaGen extends AbstractMojo {
         try {
             Files.deleteIfExists(constantPath);
             Files.createDirectories(constantPath.getParent());
-            Files.write(constantPath, lines, UTF_8, APPEND, CREATE);
+            Files.write(constantPath, lines, Charset.forName(properties.getProperty("project.build.sourceEncoding")), APPEND, CREATE);
         } catch (IOException e) {
             throw new MojoExecutionException("generate constants FAILED", e);
         }
