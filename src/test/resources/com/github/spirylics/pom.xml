@@ -12,6 +12,11 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <constant.short>1</constant.short>
+        <constant.int>1111111</constant.int>
+        <constant.long>1111111111111111111</constant.long>
+        <constant.boolean>true</constant.boolean>
+        <constant.string>foo</constant.string>
     </properties>
 
     <build>
@@ -23,18 +28,6 @@
                     <directory>${project.build.directory}/gen</directory>
                     <name>com.github.spirylics.test.R</name>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-constants</id>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.generatedSources}/gwt</outputDirectory>
-                            <name>com.thrillsoft.utransport.client.R</name>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
