@@ -40,6 +40,7 @@ public class ConstantMavenPluginTest {
 
         URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{mojo.directory.toURI().toURL()});
         Class<?> constantClass = Class.forName(mojo.name, true, classLoader);
+        assertEquals(5, constantClass.getFields().length);
         assertTrue(constantClass.getField("constant_boolean").getBoolean(null));
         assertEquals(1, constantClass.getField("constant_short").getShort(null));
         assertEquals(1111111, constantClass.getField("constant_int").getInt(null));

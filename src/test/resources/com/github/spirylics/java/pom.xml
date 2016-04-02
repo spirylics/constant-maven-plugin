@@ -27,6 +27,9 @@
                 <configuration>
                     <directory>${project.build.directory}/gen</directory>
                     <name>com.github.spirylics.test.R</name>
+                    <filters>
+                        <filter>constant.*</filter>
+                    </filters>
                 </configuration>
             </plugin>
         </plugins>

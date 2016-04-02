@@ -31,6 +31,9 @@ public class JavaGen extends AbstractMojo {
     @Parameter(defaultValue = "${project.properties}", readonly = true, required = true)
     Properties properties;
 
+    @Parameter(readonly = true, required = false)
+    List<String> filters;
+
     final List<Function<String, Object>> typeFns = Arrays.asList(
             v -> {
                 if ("true".equals(v) || "false".equals(v)) return new Boolean(v);
@@ -51,7 +54,7 @@ public class JavaGen extends AbstractMojo {
         List<String> lines = new ArrayList<>();
         lines.add(String.format("package %s;", getPackage()));
         lines.add(String.format("public interface %s {", getSimpleClassName()));
-        properties.entrySet().stream().forEach(e -> lines.add(getConstantDeclaration(e)));
+        properties.entrySet().stream().filter(e -> filter(e.getKey().toString())).forEach(e -> lines.add(getConstantDeclaration(e)));
         lines.add("}");
         try {
             Files.deleteIfExists(constantPath);
@@ -102,5 +105,17 @@ public class JavaGen extends AbstractMojo {
             }
         }
         return null;
+    }
+
+    boolean filter(String constantName) {
+        if (filters != null) {
+            for (String filter : filters) {
+                if (constantName.matches(filter)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
     }
 }
