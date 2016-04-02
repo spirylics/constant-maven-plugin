@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ConstantMavenPluginTest {
-    File baseDir = new File(getClass().getResource("pom.xml").getFile()).getParentFile();
+    File baseDir = new File(getClass().getResource("java").getFile());
 
     @Rule
     public MojoRule rule = new MojoRule() {

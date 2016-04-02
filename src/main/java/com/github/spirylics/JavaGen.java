@@ -83,7 +83,7 @@ public class JavaGen extends AbstractMojo {
     }
 
     String toStringType(Object o) {
-        return Primitives.isWrapperType(o.getClass()) ? Primitives.unwrap(o.getClass()).toString(): o.getClass().getName();
+        return Primitives.isWrapperType(o.getClass()) ? Primitives.unwrap(o.getClass()).toString() : o.getClass().getName();
     }
 
     String toStringValue(Object o) {
