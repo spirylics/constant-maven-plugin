@@ -6,13 +6,17 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import static java.nio.file.StandardOpenOption.APPEND;
@@ -28,11 +32,11 @@ public class JavaGen extends AbstractMojo {
     @Parameter(readonly = true, required = true)
     String name;
 
-    @Parameter(defaultValue = "${project.properties}", readonly = true, required = true)
-    Properties properties;
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
+    MavenProject project;
 
     @Parameter(readonly = true, required = false)
-    List<String> filters;
+    List<String> includes;
 
     final List<Function<String, Object>> typeFns = Arrays.asList(
             v -> {
@@ -54,15 +58,16 @@ public class JavaGen extends AbstractMojo {
         List<String> lines = new ArrayList<>();
         lines.add(String.format("package %s;", getPackage()));
         lines.add(String.format("public interface %s {", getSimpleClassName()));
-        properties.entrySet().stream().filter(e -> filter(e.getKey().toString())).forEach(e -> lines.add(getConstantDeclaration(e)));
+        project.getProperties().entrySet().stream().filter(e -> filter(e.getKey().toString())).forEach(e -> lines.add(getConstantDeclaration(e)));
         lines.add("}");
         try {
             Files.deleteIfExists(constantPath);
             Files.createDirectories(constantPath.getParent());
-            Files.write(constantPath, lines, Charset.forName(properties.getProperty("project.build.sourceEncoding")), APPEND, CREATE);
+            Files.write(constantPath, lines, Charset.forName(project.getProperties().getProperty("project.build.sourceEncoding")), APPEND, CREATE);
         } catch (IOException e) {
             throw new MojoExecutionException("generate constants FAILED", e);
         }
+        project.addCompileSourceRoot(directory.getAbsolutePath());
     }
 
     File getConstantFile() {
@@ -108,8 +113,8 @@ public class JavaGen extends AbstractMojo {
     }
 
     boolean filter(String constantName) {
-        if (filters != null) {
-            for (String filter : filters) {
+        if (includes != null) {
+            for (String filter : includes) {
                 if (constantName.matches(filter)) {
                     return true;
                 }

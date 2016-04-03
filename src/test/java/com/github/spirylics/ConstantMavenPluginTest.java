@@ -14,8 +14,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ConstantMavenPluginTest {
-    File baseDir = new File(getClass().getResource("java").getFile());
-
     @Rule
     public MojoRule rule = new MojoRule() {
         @Override
@@ -29,7 +27,7 @@ public class ConstantMavenPluginTest {
 
     @Test
     public void testJava() throws Exception {
-        JavaGen mojo = (JavaGen) rule.lookupConfiguredMojo(baseDir, "java");
+        JavaGen mojo = (JavaGen) rule.lookupConfiguredMojo(new File(getClass().getResource("java").getFile()), "java");
         mojo.execute();
 
         File constantFile = mojo.getConstantFile();
