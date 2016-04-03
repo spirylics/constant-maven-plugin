@@ -23,20 +23,35 @@ import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES;
 
+/**
+ * Generate Constant Java Class
+ */
 @Mojo(name = "java", defaultPhase = GENERATE_SOURCES)
 public class JavaGen extends AbstractMojo {
 
+    /**
+     * Directory where will be generated sources
+     */
     @Parameter(defaultValue = "${project.build.directory}", readonly = true, required = true)
     File directory;
 
+    /**
+     * Constant class name
+     */
     @Parameter(readonly = true, required = true)
     String name;
 
-    @Parameter(defaultValue = "${project}", readonly = true, required = true)
-    MavenProject project;
-
+    /**
+     * Regexp list of maven properties to include
+     */
     @Parameter(readonly = true, required = false)
     List<String> includes;
+
+    /**
+     * Maven project
+     */
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
+    MavenProject project;
 
     final List<Function<String, Object>> typeFns = Arrays.asList(
             v -> {
