@@ -6,6 +6,7 @@
     <version>1.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <url>https://github.com/spirylics/constant-maven-plugin</url>
+    <description>Export maven properties to constants sources</description>
 
     <prerequisites>
         <maven>3.3.9</maven>
