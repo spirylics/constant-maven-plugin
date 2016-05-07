@@ -32,19 +32,19 @@ public class JavaGen extends AbstractMojo {
     /**
      * Directory where will be generated sources
      */
-    @Parameter(defaultValue = "${project.build.directory}", readonly = true, required = true)
+    @Parameter(defaultValue = "${project.build.directory}", required = true)
     File directory;
 
     /**
      * Constant class name
      */
-    @Parameter(readonly = true, required = true)
+    @Parameter(required = true)
     String name;
 
     /**
      * Regexp list of maven properties to include
      */
-    @Parameter(readonly = true, required = false)
+    @Parameter
     List<String> includes;
 
     /**
