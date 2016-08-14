@@ -1,12 +1,8 @@
 package com.github.spirylics;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.primitives.Primitives;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.CREATE;
+import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +15,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import static java.nio.file.StandardOpenOption.APPEND;
-import static java.nio.file.StandardOpenOption.CREATE;
-import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_SOURCES;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.common.primitives.Primitives;
 
 /**
  * Generate Constant Java Class
